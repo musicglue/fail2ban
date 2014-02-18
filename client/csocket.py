@@ -18,7 +18,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 # Author: Cyril Jaquier
-# 
+#
 
 __author__ = "Cyril Jaquier"
 __copyright__ = "Copyright (c) 2004 Cyril Jaquier"
@@ -29,16 +29,16 @@ from pickle import dumps, loads, HIGHEST_PROTOCOL
 import socket
 
 class CSocket:
-	
+
 	END_STRING = "<F2B_END_COMMAND>"
-	
-	def __init__(self, sock = "/var/run/fail2ban/fail2ban.sock"):
+
+	def __init__(self, sock = "/app/local/var/run/fail2ban/fail2ban.sock"):
 		# Create an INET, STREAMing socket
 		#self.csock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 		self.__csock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
 		#self.csock.connect(("localhost", 2222))
 		self.__csock.connect(sock)
-	
+
 	def send(self, msg):
 		# Convert every list member to string
 		obj = dumps([str(m) for m in msg], HIGHEST_PROTOCOL)
@@ -46,7 +46,7 @@ class CSocket:
 		ret = self.receive(self.__csock)
 		self.__csock.close()
 		return ret
-	
+
 	#@staticmethod
 	def receive(sock):
 		msg = ''

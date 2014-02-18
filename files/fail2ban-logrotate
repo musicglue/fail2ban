@@ -8,11 +8,11 @@
 # Fedora view:
 #  http://pkgs.fedoraproject.org/cgit/fail2ban.git/tree/fail2ban-logrotate
 
-/var/log/fail2ban.log {
+/app/local/var/log/fail2ban.log {
     rotate 7
     missingok
     compress
     postrotate
-      /usr/bin/fail2ban-client flushlogs  1>/dev/null || true
+      /app/local/usr/bin/fail2ban-client flushlogs  1>/dev/null || true
     endscript
 }

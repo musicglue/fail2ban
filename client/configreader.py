@@ -33,21 +33,21 @@ logSys = logging.getLogger("fail2ban.client.config")
 
 class ConfigReader(SafeConfigParserWithIncludes):
 
-	DEFAULT_BASEDIR = '/etc/fail2ban'
-	
+	DEFAULT_BASEDIR = '/app/local/etc/fail2ban'
+
 	def __init__(self, basedir=None):
 		SafeConfigParserWithIncludes.__init__(self)
 		self.setBaseDir(basedir)
 		self.__opts = None
-	
+
 	def setBaseDir(self, basedir):
 		if basedir is None:
 			basedir = ConfigReader.DEFAULT_BASEDIR	# stock system location
 		self._basedir = basedir.rstrip('/')
-	
+
 	def getBaseDir(self):
 		return self._basedir
-	
+
 	def read(self, filename):
 		if not os.path.exists(self._basedir):
 			raise ValueError("Base configuration directory %s does not exist "
@@ -61,7 +61,7 @@ class ConfigReader(SafeConfigParserWithIncludes):
 		config_files += sorted(glob.glob('%s/*.conf' % config_dir))
 
 		config_files.append(basename + ".local")
-	
+
 		config_files += sorted(glob.glob('%s/*.local' % config_dir))
 
 		# choose only existing ones
@@ -95,7 +95,7 @@ class ConfigReader(SafeConfigParserWithIncludes):
 	# 0 -> the type of the option
 	# 1 -> the name of the option
 	# 2 -> the default value for the option
-	
+
 	def getOptions(self, sec, options, pOptions = None):
 		values = dict()
 		for option in options:

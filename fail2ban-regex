@@ -36,7 +36,7 @@ import getopt, sys, time, logging, os, urllib
 try:
 	from common.version import version
 except ImportError, e:
-	sys.path.insert(1, "/usr/share/fail2ban")
+	sys.path.insert(1, "/app/local/usr/share/fail2ban")
 	from common.version import version
 
 from optparse import OptionParser, Option
@@ -179,7 +179,7 @@ class LineStats(object):
 
 class Fail2banRegex(object):
 
-	CONFIG_DEFAULTS = {'configpath' : "/etc/fail2ban/"}
+	CONFIG_DEFAULTS = {'configpath' : "/app/local/etc/fail2ban/"}
 
 	def __init__(self, opts):
 		self._verbose = opts.verbose

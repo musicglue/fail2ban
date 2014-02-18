@@ -29,8 +29,8 @@ from sys import argv
 from glob import glob
 
 longdesc = '''
-Fail2Ban scans log files like /var/log/pwdfail or
-/var/log/apache/error_log and bans IP that makes
+Fail2Ban scans log files like /app/local/var/log/pwdfail or
+/app/local/var/log/apache/error_log and bans IP that makes
 too many password failures. It updates firewall rules
 to reject the IP address or executes user defined
 commands.'''
@@ -57,25 +57,25 @@ setup(
 					'testcases'
 				],
 	data_files =	[
-						('/etc/fail2ban',
+						('/app/local/etc/fail2ban',
 							glob("config/*.conf")
 						),
-						('/etc/fail2ban/filter.d',
+						('/app/local/etc/fail2ban/filter.d',
 							glob("config/filter.d/*.conf")
 						),
-						('/etc/fail2ban/action.d',
+						('/app/local/etc/fail2ban/action.d',
 							glob("config/action.d/*.conf")
 						),
-						('/etc/fail2ban/fail2ban.d',
+						('/app/local/etc/fail2ban/fail2ban.d',
 							''
 						),
-						('/etc/fail2ban/jail.d',
+						('/app/local/etc/fail2ban/jail.d',
 							''
 						),
-						('/var/run/fail2ban',
+						('/app/local/var/run/fail2ban',
 							''
 						),
-						('/usr/share/doc/fail2ban',
+						('/app/local/usr/share/doc/fail2ban',
 							['README.md', 'DEVELOP', 'doc/run-rootless.txt']
 						)
 					]
@@ -85,15 +85,15 @@ setup(
 # Search for obsolete files.
 obsoleteFiles = []
 elements =	{
-				"/etc/":
+				"/app/local/etc/":
 					[
 						"fail2ban.conf"
 					],
-				"/usr/bin/":
+				"/app/local/usr/bin/":
 					[
 						"fail2ban.py"
-					], 
-				"/usr/lib/fail2ban/":
+					],
+				"/app/local/usr/lib/fail2ban/":
 					[
 						"version.py",
 						"protocol.py"
@@ -116,16 +116,16 @@ if obsoleteFiles:
 		print "\t" + f
 	print
 
-if isdir("/usr/lib/fail2ban"):
+if isdir("/app/local/usr/lib/fail2ban"):
 	print
-	print "Fail2ban is not installed under /usr/lib anymore. The new " \
-		  "location is under /usr/share. Please remove the directory " \
-		  "/usr/lib/fail2ban and everything under this directory."
+	print "Fail2ban is not installed under /app/local/usr/lib anymore. The new " \
+		  "location is under /app/local/usr/share. Please remove the directory " \
+		  "/app/local/usr/lib/fail2ban and everything under this directory."
 	print
 
 # Update config file
 if argv[1] == "install":
 	print
 	print "Please do not forget to update your configuration files."
-	print "They are in /etc/fail2ban/."
+	print "They are in /app/local/etc/fail2ban/."
 	print

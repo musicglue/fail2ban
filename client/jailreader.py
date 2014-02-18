@@ -18,7 +18,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 # Author: Cyril Jaquier
-# 
+#
 
 __author__ = "Cyril Jaquier"
 __copyright__ = "Copyright (c) 2004 Cyril Jaquier"
@@ -34,9 +34,9 @@ from actionreader import ActionReader
 logSys = logging.getLogger("fail2ban.client.config")
 
 class JailReader(ConfigReader):
-	
+
 	actionCRE = re.compile("^([\w_.-]+)(?:\[(.*)\])?$")
-	
+
 	def __init__(self, name, force_enable=False, **kwargs):
 		ConfigReader.__init__(self, **kwargs)
 		self.__name = name
@@ -44,19 +44,19 @@ class JailReader(ConfigReader):
 		self.__force_enable = force_enable
 		self.__actions = list()
 		self.__opts = None
-	
+
 	def getRawOptions(self):
 		return self.__opts
 
 	def setName(self, value):
 		self.__name = value
-	
+
 	def getName(self):
 		return self.__name
-	
+
 	def read(self):
 		return ConfigReader.read(self, "jail")
-	
+
 	def isEnabled(self):
 		return self.__force_enable or ( self.__opts and self.__opts["enabled"] )
 
@@ -76,7 +76,7 @@ class JailReader(ConfigReader):
 
 	def getOptions(self):
 		opts = [["bool", "enabled", "false"],
-				["string", "logpath", "/var/log/messages"],
+				["string", "logpath", "/app/local/var/log/messages"],
 				["string", "backend", "auto"],
 				["int", "maxretry", 3],
 				["int", "findtime", 600],
@@ -91,7 +91,7 @@ class JailReader(ConfigReader):
 		self.__opts = ConfigReader.getOptions(self, self.__name, opts)
 		if not self.__opts:
 			return False
-		
+
 		if self.isEnabled():
 			# Read filter
 			if self.__opts["filter"]:
@@ -106,7 +106,7 @@ class JailReader(ConfigReader):
 			else:
 				self.__filter = None
 				logSys.warn("No filter set for jail %s" % self.__name)
-		
+
 			# Read action
 			for act in self.__opts["action"].split('\n'):
 				try:
@@ -127,7 +127,7 @@ class JailReader(ConfigReader):
 			if not len(self.__actions):
 				logSys.warn("No actions were defined for %s" % self.__name)
 		return True
-	
+
 	def convert(self, allow_no_files=False):
 		"""Convert read before __opts to the commands stream
 
@@ -182,7 +182,7 @@ class JailReader(ConfigReader):
 			stream.extend(action.convert())
 		stream.insert(0, ["add", self.__name, backend])
 		return stream
-	
+
 	#@staticmethod
 	def splitAction(action):
 		m = JailReader.actionCRE.match(action)
@@ -218,12 +218,12 @@ class JailReader(ConfigReader):
 						actions += "<COMMA>"
 					else:
 						actions += c
-			
+
 			# Split using ,
 			actionsSplit = actions.split(',')
 			# Replace the tag <COMMA> with ,
 			actionsSplit = [n.replace("<COMMA>", ',') for n in actionsSplit]
-			
+
 			for param in actionsSplit:
 				p = param.split('=')
 				try:

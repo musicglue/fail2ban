@@ -1,11 +1,11 @@
 #!/bin/bash
 # Simple helper script to exercise unittests using all available
-# (under /usr/bin and /usr/local/bin python2.*)
+# (under /app/local/usr/bin and /app/local/usr/local/bin python2.*)
 
 set -eu
 
 failed=
-for python in /usr/{,local/}bin/python2.[0-9]{,.*}{,-dbg}
+for python in /app/local/usr/{,local/}bin/python2.[0-9]{,.*}{,-dbg}
 do
 	[ -e "$python" ] || continue
 	echo "Testing using $python"

@@ -1,6 +1,6 @@
-                         __      _ _ ___ _               
-                        / _|__ _(_) |_  ) |__  __ _ _ _  
-                       |  _/ _` | | |/ /| '_ \/ _` | ' \ 
+                         __      _ _ ___ _
+                        / _|__ _(_) |_  ) |__  __ _ _ _
+                       |  _/ _` | | |/ /| '_ \/ _` | ' \
                        |_| \__,_|_|_/___|_.__/\__,_|_||_|
                        v0.8.12                 2014/01/22
 
@@ -34,8 +34,8 @@ To install, just do:
     cd fail2ban-0.8.12
     python setup.py install
 
-This will install Fail2Ban into /usr/share/fail2ban. The executable scripts are
-placed into /usr/bin, and configuration under /etc/fail2ban.
+This will install Fail2Ban into /app/local/usr/share/fail2ban. The executable scripts are
+placed into /app/local/usr/bin, and configuration under /etc/fail2ban.
 
 Fail2Ban should be correctly installed now. Just type:
 

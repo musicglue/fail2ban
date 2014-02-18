@@ -29,7 +29,7 @@ import getopt, sys, logging, os
 try:
 	from common.version import version
 except ImportError, e:
-	sys.path.insert(1, "/usr/share/fail2ban")
+	sys.path.insert(1, "/app/local/usr/share/fail2ban")
 	from common.version import version
 
 from server.server import Server
@@ -53,8 +53,8 @@ class Fail2banServer:
 		self.__conf = dict()
 		self.__conf["background"] = True
 		self.__conf["force"] = False
-		self.__conf["socket"] = "/var/run/fail2ban/fail2ban.sock"
-		self.__conf["pidfile"] = "/var/run/fail2ban/fail2ban.pid"
+		self.__conf["socket"] = "/app/local/var/run/fail2ban/fail2ban.sock"
+		self.__conf["pidfile"] = "/app/local/var/run/fail2ban/fail2ban.pid"
 
 	def dispVersion(self):
 		print "Fail2Ban v" + version

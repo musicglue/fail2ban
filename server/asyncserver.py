@@ -18,7 +18,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 # Author: Cyril Jaquier
-# 
+#
 
 __author__ = "Cyril Jaquier"
 __copyright__ = "Copyright (c) 2004 Cyril Jaquier"
@@ -38,7 +38,7 @@ logSys = logging.getLogger("fail2ban.server")
 # incoming query.
 
 class RequestHandler(asynchat.async_chat):
-	
+
 	END_STRING = "<F2B_END_COMMAND>"
 
 	def __init__(self, conn, transmitter):
@@ -68,13 +68,13 @@ class RequestHandler(asynchat.async_chat):
 		self.push(message + RequestHandler.END_STRING)
 		# Closes the channel.
 		self.close_when_done()
-		
+
 	def handle_error(self):
 		e1, e2 = helpers.formatExceptionInfo()
 		logSys.error("Unexpected communication error: %s" % str(e2))
 		logSys.error(traceback.format_exc().splitlines())
 		self.close()
-		
+
 ##
 # Asynchronous server class.
 #
@@ -86,7 +86,7 @@ class AsyncServer(asyncore.dispatcher):
 	def __init__(self, transmitter):
 		asyncore.dispatcher.__init__(self)
 		self.__transmitter = transmitter
-		self.__sock = "/var/run/fail2ban/fail2ban.sock"
+		self.__sock = "/app/local/var/run/fail2ban/fail2ban.sock"
 		self.__init = False
 
 	##
@@ -108,13 +108,13 @@ class AsyncServer(asyncore.dispatcher):
 		# Creates an instance of the handler class to handle the
 		# request/response on the incoming connection.
 		RequestHandler(conn, self.__transmitter)
-	
+
 	##
 	# Starts the communication server.
 	#
 	# @param sock: socket file.
 	# @param force: remove the socket file if exists.
-	
+
 	def start(self, sock, force):
 		self.__sock = sock
 		# Remove socket
@@ -144,10 +144,10 @@ class AsyncServer(asyncore.dispatcher):
 		else: # pragma: no cover
 			logSys.debug("NOT Python 2.6/3.* - asyncore.loop() using poll")
 			asyncore.loop(use_poll = True)
-	
+
 	##
 	# Stops the communication server.
-	
+
 	def stop(self):
 		if self.__init:
 			# Only closes the socket if it was initialized first.
@@ -163,7 +163,7 @@ class AsyncServer(asyncore.dispatcher):
 	# running actions involving command execution.
 
 	# @param sock: socket file.
-	
+
 	#@staticmethod
 	def __markCloseOnExec(sock):
 		fd = sock.fileno()

@@ -156,7 +156,7 @@ class JailReaderTest(LogCaptureTestCase):
 		self.assertTrue(self._is_logged("Invalid argument ['s'] in ''s''"))
 
 		self.assertEqual(['mail', {'a': ','}], JailReader.splitAction("mail[a=',']"))
-		
+
 		self.assertRaises(ValueError, JailReader.splitAction ,'mail-how[')
 
 
@@ -167,7 +167,7 @@ class JailReaderTest(LogCaptureTestCase):
 		f1 = os.path.join(d, 'f1')
 		open(f1, 'w').close()
 		# dangling link
-		
+
 		f2 = os.path.join(d, 'f2')
 		os.symlink('nonexisting',f2)
 
@@ -335,8 +335,8 @@ class JailsReaderTest(LogCaptureTestCase):
 		configurator.readEarly()
 		opts = configurator.getEarlyOptions()
 		# our current default settings
-		self.assertEqual(opts['socket'], '/var/run/fail2ban/fail2ban.sock')
-		self.assertEqual(opts['pidfile'], '/var/run/fail2ban/fail2ban.pid')
+		self.assertEqual(opts['socket'], '/app/local/var/run/fail2ban/fail2ban.sock')
+		self.assertEqual(opts['pidfile'], '/app/local/var/run/fail2ban/fail2ban.pid')
 
 		configurator.getOptions()
 		configurator.convertToProtocol()
@@ -345,7 +345,7 @@ class JailsReaderTest(LogCaptureTestCase):
 		# server
 		self.assertEqual(sorted(commands),
 						 [['set', 'loglevel', 3],
-						  ['set', 'logtarget', '/var/log/fail2ban.log']])
+						  ['set', 'logtarget', '/app/local/var/log/fail2ban.log']])
 
 		# and if we force change configurator's fail2ban's baseDir
 		# there should be an error message (test visually ;) --

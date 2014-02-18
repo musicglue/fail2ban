@@ -18,7 +18,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 # Author: Cyril Jaquier
-# 
+#
 
 __author__ = "Cyril Jaquier"
 __copyright__ = "Copyright (c) 2004 Cyril Jaquier"
@@ -31,23 +31,23 @@ from configreader import ConfigReader
 logSys = logging.getLogger("fail2ban.client.config")
 
 class Fail2banReader(ConfigReader):
-	
+
 	def __init__(self, **kwargs):
 		ConfigReader.__init__(self, **kwargs)
-	
+
 	def read(self):
 		ConfigReader.read(self, "fail2ban")
-	
+
 	def getEarlyOptions(self):
-		opts = [["string", "socket", "/var/run/fail2ban/fail2ban.sock"],
-				["string", "pidfile", "/var/run/fail2ban/fail2ban.pid"]]
+		opts = [["string", "socket", "/app/local/var/run/fail2ban/fail2ban.sock"],
+				["string", "pidfile", "/app/local/var/run/fail2ban/fail2ban.pid"]]
 		return ConfigReader.getOptions(self, "Definition", opts)
-	
+
 	def getOptions(self):
 		opts = [["int", "loglevel", 1],
 				["string", "logtarget", "STDERR"]]
 		self.__opts = ConfigReader.getOptions(self, "Definition", opts)
-	
+
 	def convert(self):
 		stream = list()
 		for opt in self.__opts:
@@ -56,4 +56,4 @@ class Fail2banReader(ConfigReader):
 			elif opt == "logtarget":
 				stream.append(["set", "logtarget", self.__opts[opt]])
 		return stream
-	
+
