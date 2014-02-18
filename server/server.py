@@ -351,9 +351,6 @@ class Server:
 
 	def setLogTarget(self, target):
 		try:
-			logSys.info("setLogTarget")
-			logSys.info(target)
-
 			self.__loggingLock.acquire()
 			# set a format which is simpler for console use
 			formatter = logging.Formatter("%(asctime)s %(name)-16s[%(process)d]: %(levelname)-7s %(message)s")
@@ -367,6 +364,8 @@ class Server:
 			elif target == "STDERR":
 				hdlr = logging.StreamHandler(sys.stderr)
 			else:
+				logSys.info("setLogTarget called: " + target)
+
 				# Target should be a file
 				try:
 					open(target, "a").close()
